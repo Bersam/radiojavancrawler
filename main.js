@@ -13,6 +13,7 @@ var c = new Crawler({
   callback : function (error, result, $) {
     // $ is Cheerio by default
     //a lean implementation of core jQuery designed specifically for the server
+    fileName = $('title').replace(' - ', ' ').replace(' MP3 - RadioJavan.com','').replace("'","").replace(" ", "-");
     var downloadLink = "http://media.rdjavan.com/media/mp3/" + RJ.currentMP3Url;
     var file = fs.createWriteStream("./downloads/"+title+"/" + downloadLink.split("/").pop());
     var request = http.get(downloadLink, function(response) {
