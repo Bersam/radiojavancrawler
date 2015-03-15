@@ -2,6 +2,9 @@ var Crawler = require("crawler");
 var url = require('url');
 var http = require('http');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
+
+title = '';
 
 var c = new Crawler({
   maxConnections : 10,
@@ -12,7 +15,7 @@ var c = new Crawler({
     //a lean implementation of core jQuery designed specifically for the server
     $('a.mp3_download_link').each(function(index, a) {
       var downloadLink = $(a).attr('href');
-      var file = fs.createWriteStream(downloadLink.split("/").pop());
+      var file = fs.createWriteStream("./downloads/"+title+"/"+downloadLink.split("/").pop());
       var request = http.get(downloadLink, function(response) {
         response.pipe(file);
         console.log("[DONE]", $('title').text());
@@ -32,14 +35,17 @@ c.queue([{
   jQuery: 'cheerio',
   // The global callback won't be called
   callback: function (error, result, $) {
-    playlist = $('#playlist');
-    songs = playlist.find('.simple_table tr td:first-child a');
-    songs.each(function(index, a){
-      if(index % 3 === 0){
-        var song = "http://www.radiojavan.com"+$(a).attr('href');
-        c.queue(song);
-      }
+    title = $('title').text().replace("'","").trim();
+    mkdirp("./downloads/"+title,function(error){
+      playlist = $('#playlist');
+      songs = playlist.find('.simple_table tr td:first-child a');
+      songs.each(function(index, a){
+        if(index % 3 === 0){
+          var song = "http://www.radiojavan.com"+$(a).attr('href');
+          c.queue(song);
+        }
+      });
+      console.log(title);
     });
-    console.log($('title').text());
   }
 }]);
