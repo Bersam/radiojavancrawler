@@ -40,10 +40,8 @@ c.queue([{
       playlist = $('#playlist');
       songs = playlist.find('.simple_table tr td:first-child a');
       songs.each(function(index, a){
-        if(index % 3 === 0){
-          var song = "http://www.radiojavan.com"+$(a).attr('href');
-          c.queue(song);
-        }
+        var song = "http://www.radiojavan.com"+$(a).attr('href');
+        c.queue(song);
       });
       console.log(title);
     });
