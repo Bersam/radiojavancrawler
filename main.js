@@ -4,7 +4,7 @@ var http = require('http');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
-title = '';
+title = 'notitle';
 
 var c = new Crawler({
   maxConnections : 10,
