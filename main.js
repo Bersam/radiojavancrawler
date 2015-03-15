@@ -1,5 +1,7 @@
 var Crawler = require("crawler");
 var url = require('url');
+var http = require('http');
+var fs = require('fs');
 
 var c = new Crawler({
   maxConnections : 10,
@@ -10,9 +12,12 @@ var c = new Crawler({
     //a lean implementation of core jQuery designed specifically for the server
     $('a.mp3_download_link').each(function(index, a) {
       var downloadLink = $(a).attr('href');
-      console.log(downloadLink);
+      var file = fs.createWriteStream(downloadLink.split("/").pop());
+      var request = http.get(downloadLink, function(response) {
+        response.pipe(file);
+        console.log("[DONE]", $('title').text());
+      });
     });
-    console.log($('title').text());
   }
 });
 
