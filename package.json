@@ -4,6 +4,8 @@
   "description": "Simple crawler for downloading radiojavan playlists",
   "main": "main.js",
   "dependencies": {
+    "cheerio": "^0.18.0",
+    "crawler": "^0.4.2"
   },
   "devDependencies": {},
   "author": "Bersam Karbasion <bersam@bersam.org>",
