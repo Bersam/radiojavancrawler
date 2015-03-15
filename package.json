@@ -4,10 +4,6 @@
   "description": "Simple crawler for downloading radiojavan playlists",
   "main": "main.js",
   "dependencies": {
-    "URIjs": "^1.14.2",
-    "node-fs": "^0.1.7",
-    "simplecrawler": "^0.3.10",
-    "wrench": "^1.5.8"
   },
   "devDependencies": {},
   "author": "Bersam Karbasion <bersam@bersam.org>",
